@@ -1,0 +1,287 @@
+.
+├── ChartViewController
+│   ├── AppDelegate.swift
+│   ├── Assets.xcassets
+│   │   ├── AccentColor.colorset
+│   │   │   └── Contents.json
+│   │   ├── AppIcon.appiconset
+│   │   │   └── Contents.json
+│   │   └── Contents.json
+│   ├── Base.lproj
+│   │   ├── LaunchScreen.storyboard
+│   │   └── Main.storyboard
+│   ├── Info.plist
+│   ├── SceneDelegate.swift
+│   └── ViewController.swift
+├── ChartViewController.xcodeproj
+│   ├── project.pbxproj
+│   ├── project.xcworkspace
+│   │   ├── contents.xcworkspacedata
+│   │   ├── xcshareddata
+│   │   │   ├── IDEWorkspaceChecks.plist
+│   │   │   └── swiftpm
+│   │   │       └── configuration
+│   │   └── xcuserdata
+│   │       └── burhancankurt.xcuserdatad
+│   │           └── UserInterfaceState.xcuserstate
+│   └── xcuserdata
+│       └── burhancankurt.xcuserdatad
+│           └── xcschemes
+│               └── xcschememanagement.plist
+├── ChartViewController.xcworkspace
+│   ├── contents.xcworkspacedata
+│   ├── xcshareddata
+│   │   ├── IDEWorkspaceChecks.plist
+│   │   └── swiftpm
+│   │       └── configuration
+│   └── xcuserdata
+│       └── burhancankurt.xcuserdatad
+│           └── UserInterfaceState.xcuserstate
+├── Controllers
+├── Managers
+├── Models
+├── Podfile
+├── Podfile.lock
+├── Pods
+│   ├── CorePlot
+│   │   ├── License.txt
+│   │   ├── README.md
+│   │   └── framework
+│   │       ├── CocoaPods
+│   │       │   └── CorePlot.h
+│   │       ├── CorePlot-CocoaTouch.h
+│   │       ├── Source
+│   │       │   ├── CPTAnimation.h
+│   │       │   ├── CPTAnimation.m
+│   │       │   ├── CPTAnimationOperation.h
+│   │       │   ├── CPTAnimationOperation.m
+│   │       │   ├── CPTAnimationPeriod.h
+│   │       │   ├── CPTAnimationPeriod.m
+│   │       │   ├── CPTAnnotation.h
+│   │       │   ├── CPTAnnotation.m
+│   │       │   ├── CPTAnnotationHostLayer.h
+│   │       │   ├── CPTAnnotationHostLayer.m
+│   │       │   ├── CPTAxis.h
+│   │       │   ├── CPTAxis.m
+│   │       │   ├── CPTAxisLabel.h
+│   │       │   ├── CPTAxisLabel.m
+│   │       │   ├── CPTAxisLabelGroup.h
+│   │       │   ├── CPTAxisLabelGroup.m
+│   │       │   ├── CPTAxisSet.h
+│   │       │   ├── CPTAxisSet.m
+│   │       │   ├── CPTAxisTitle.h
+│   │       │   ├── CPTAxisTitle.m
+│   │       │   ├── CPTBarPlot.h
+│   │       │   ├── CPTBarPlot.m
+│   │       │   ├── CPTBorderedLayer.h
+│   │       │   ├── CPTBorderedLayer.m
+│   │       │   ├── CPTCalendarFormatter.h
+│   │       │   ├── CPTCalendarFormatter.m
+│   │       │   ├── CPTColor.h
+│   │       │   ├── CPTColor.m
+│   │       │   ├── CPTColorSpace.h
+│   │       │   ├── CPTColorSpace.m
+│   │       │   ├── CPTConstraints.h
+│   │       │   ├── CPTConstraints.m
+│   │       │   ├── CPTDebugQuickLook.h
+│   │       │   ├── CPTDefinitions.h
+│   │       │   ├── CPTDefinitions.m
+│   │       │   ├── CPTDerivedXYGraph.h
+│   │       │   ├── CPTDerivedXYGraph.m
+│   │       │   ├── CPTExceptions.h
+│   │       │   ├── CPTExceptions.m
+│   │       │   ├── CPTFill.h
+│   │       │   ├── CPTFill.m
+│   │       │   ├── CPTFunctionDataSource.h
+│   │       │   ├── CPTFunctionDataSource.m
+│   │       │   ├── CPTGradient.h
+│   │       │   ├── CPTGradient.m
+│   │       │   ├── CPTGraph.h
+│   │       │   ├── CPTGraph.m
+│   │       │   ├── CPTGridLineGroup.h
+│   │       │   ├── CPTGridLineGroup.m
+│   │       │   ├── CPTGridLines.h
+│   │       │   ├── CPTGridLines.m
+│   │       │   ├── CPTImage.h
+│   │       │   ├── CPTImage.m
+│   │       │   ├── CPTLayer.h
+│   │       │   ├── CPTLayer.m
+│   │       │   ├── CPTLayerAnnotation.h
+│   │       │   ├── CPTLayerAnnotation.m
+│   │       │   ├── CPTLegend.h
+│   │       │   ├── CPTLegend.m
+│   │       │   ├── CPTLegendEntry.h
+│   │       │   ├── CPTLegendEntry.m
+│   │       │   ├── CPTLimitBand.h
+│   │       │   ├── CPTLimitBand.m
+│   │       │   ├── CPTLineCap.h
+│   │       │   ├── CPTLineCap.m
+│   │       │   ├── CPTLineStyle.h
+│   │       │   ├── CPTLineStyle.m
+│   │       │   ├── CPTMutableLineStyle.h
+│   │       │   ├── CPTMutableLineStyle.m
+│   │       │   ├── CPTMutableNumericData+TypeConversion.h
+│   │       │   ├── CPTMutableNumericData+TypeConversion.m
+│   │       │   ├── CPTMutableNumericData.h
+│   │       │   ├── CPTMutableNumericData.m
+│   │       │   ├── CPTMutablePlotRange.h
+│   │       │   ├── CPTMutablePlotRange.m
+│   │       │   ├── CPTMutableShadow.h
+│   │       │   ├── CPTMutableShadow.m
+│   │       │   ├── CPTMutableTextStyle.h
+│   │       │   ├── CPTMutableTextStyle.m
+│   │       │   ├── CPTNumericData+TypeConversion.h
+│   │       │   ├── CPTNumericData+TypeConversion.m
+│   │       │   ├── CPTNumericData.h
+│   │       │   ├── CPTNumericData.m
+│   │       │   ├── CPTNumericDataType.h
+│   │       │   ├── CPTNumericDataType.m
+│   │       │   ├── CPTPathExtensions.h
+│   │       │   ├── CPTPathExtensions.m
+│   │       │   ├── CPTPieChart.h
+│   │       │   ├── CPTPieChart.m
+│   │       │   ├── CPTPlot.h
+│   │       │   ├── CPTPlot.m
+│   │       │   ├── CPTPlotArea.h
+│   │       │   ├── CPTPlotArea.m
+│   │       │   ├── CPTPlotAreaFrame.h
+│   │       │   ├── CPTPlotAreaFrame.m
+│   │       │   ├── CPTPlotGroup.h
+│   │       │   ├── CPTPlotGroup.m
+│   │       │   ├── CPTPlotRange.h
+│   │       │   ├── CPTPlotRange.m
+│   │       │   ├── CPTPlotSpace.h
+│   │       │   ├── CPTPlotSpace.m
+│   │       │   ├── CPTPlotSpaceAnnotation.h
+│   │       │   ├── CPTPlotSpaceAnnotation.m
+│   │       │   ├── CPTPlotSymbol.h
+│   │       │   ├── CPTPlotSymbol.m
+│   │       │   ├── CPTRangePlot.h
+│   │       │   ├── CPTRangePlot.m
+│   │       │   ├── CPTResponder.h
+│   │       │   ├── CPTScatterPlot.h
+│   │       │   ├── CPTScatterPlot.m
+│   │       │   ├── CPTShadow.h
+│   │       │   ├── CPTShadow.m
+│   │       │   ├── CPTTextLayer.h
+│   │       │   ├── CPTTextLayer.m
+│   │       │   ├── CPTTextStyle.h
+│   │       │   ├── CPTTextStyle.m
+│   │       │   ├── CPTTheme.h
+│   │       │   ├── CPTTheme.m
+│   │       │   ├── CPTTimeFormatter.h
+│   │       │   ├── CPTTimeFormatter.m
+│   │       │   ├── CPTTradingRangePlot.h
+│   │       │   ├── CPTTradingRangePlot.m
+│   │       │   ├── CPTUtilities.h
+│   │       │   ├── CPTUtilities.m
+│   │       │   ├── CPTXYAxis.h
+│   │       │   ├── CPTXYAxis.m
+│   │       │   ├── CPTXYAxisSet.h
+│   │       │   ├── CPTXYAxisSet.m
+│   │       │   ├── CPTXYGraph.h
+│   │       │   ├── CPTXYGraph.m
+│   │       │   ├── CPTXYPlotSpace.h
+│   │       │   ├── CPTXYPlotSpace.m
+│   │       │   ├── NSCoderExtensions.h
+│   │       │   ├── NSCoderExtensions.m
+│   │       │   ├── NSDecimalNumberExtensions.h
+│   │       │   ├── NSDecimalNumberExtensions.m
+│   │       │   ├── NSNumberExtensions.h
+│   │       │   ├── NSNumberExtensions.m
+│   │       │   ├── _CPTAnimationCGFloatPeriod.h
+│   │       │   ├── _CPTAnimationCGFloatPeriod.m
+│   │       │   ├── _CPTAnimationCGPointPeriod.h
+│   │       │   ├── _CPTAnimationCGPointPeriod.m
+│   │       │   ├── _CPTAnimationCGRectPeriod.h
+│   │       │   ├── _CPTAnimationCGRectPeriod.m
+│   │       │   ├── _CPTAnimationCGSizePeriod.h
+│   │       │   ├── _CPTAnimationCGSizePeriod.m
+│   │       │   ├── _CPTAnimationNSDecimalPeriod.h
+│   │       │   ├── _CPTAnimationNSDecimalPeriod.m
+│   │       │   ├── _CPTAnimationNSNumberPeriod.h
+│   │       │   ├── _CPTAnimationNSNumberPeriod.m
+│   │       │   ├── _CPTAnimationPlotRangePeriod.h
+│   │       │   ├── _CPTAnimationPlotRangePeriod.m
+│   │       │   ├── _CPTAnimationTimingFunctions.h
+│   │       │   ├── _CPTAnimationTimingFunctions.m
+│   │       │   ├── _CPTBorderLayer.h
+│   │       │   ├── _CPTBorderLayer.m
+│   │       │   ├── _CPTConstraintsFixed.h
+│   │       │   ├── _CPTConstraintsFixed.m
+│   │       │   ├── _CPTConstraintsRelative.h
+│   │       │   ├── _CPTConstraintsRelative.m
+│   │       │   ├── _CPTDarkGradientTheme.h
+│   │       │   ├── _CPTDarkGradientTheme.m
+│   │       │   ├── _CPTFillColor.h
+│   │       │   ├── _CPTFillColor.m
+│   │       │   ├── _CPTFillGradient.h
+│   │       │   ├── _CPTFillGradient.m
+│   │       │   ├── _CPTFillImage.h
+│   │       │   ├── _CPTFillImage.m
+│   │       │   ├── _CPTMaskLayer.h
+│   │       │   ├── _CPTMaskLayer.m
+│   │       │   ├── _CPTPlainBlackTheme.h
+│   │       │   ├── _CPTPlainBlackTheme.m
+│   │       │   ├── _CPTPlainWhiteTheme.h
+│   │       │   ├── _CPTPlainWhiteTheme.m
+│   │       │   ├── _CPTSlateTheme.h
+│   │       │   ├── _CPTSlateTheme.m
+│   │       │   ├── _CPTStocksTheme.h
+│   │       │   ├── _CPTStocksTheme.m
+│   │       │   ├── _CPTXYTheme.h
+│   │       │   └── _CPTXYTheme.m
+│   │       └── iPhoneOnly
+│   │           ├── CPTGraphHostingView.h
+│   │           ├── CPTGraphHostingView.m
+│   │           ├── CPTImagePlatformSpecific.m
+│   │           ├── CPTPlatformSpecificCategories.h
+│   │           ├── CPTPlatformSpecificCategories.m
+│   │           ├── CPTPlatformSpecificDefines.h
+│   │           ├── CPTPlatformSpecificDefines.m
+│   │           ├── CPTPlatformSpecificFunctions.h
+│   │           ├── CPTPlatformSpecificFunctions.m
+│   │           ├── CPTTextStylePlatformSpecific.h
+│   │           └── CPTTextStylePlatformSpecific.m
+│   ├── Headers
+│   ├── Local Podspecs
+│   ├── Manifest.lock
+│   ├── Pods.xcodeproj
+│   │   ├── project.pbxproj
+│   │   └── xcuserdata
+│   │       └── burhancankurt.xcuserdatad
+│   │           └── xcschemes
+│   │               ├── CorePlot.xcscheme
+│   │               ├── Pods-ChartViewController.xcscheme
+│   │               └── xcschememanagement.plist
+│   └── Target Support Files
+│       ├── CorePlot
+│       │   ├── CorePlot-Info.plist
+│       │   ├── CorePlot-dummy.m
+│       │   ├── CorePlot-prefix.pch
+│       │   ├── CorePlot-umbrella.h
+│       │   ├── CorePlot.debug.xcconfig
+│       │   ├── CorePlot.modulemap
+│       │   └── CorePlot.release.xcconfig
+│       └── Pods-ChartViewController
+│           ├── Pods-ChartViewController-Info.plist
+│           ├── Pods-ChartViewController-acknowledgements.markdown
+│           ├── Pods-ChartViewController-acknowledgements.plist
+│           ├── Pods-ChartViewController-dummy.m
+│           ├── Pods-ChartViewController-frameworks-Debug-input-files.xcfilelist
+│           ├── Pods-ChartViewController-frameworks-Debug-output-files.xcfilelist
+│           ├── Pods-ChartViewController-frameworks-Release-input-files.xcfilelist
+│           ├── Pods-ChartViewController-frameworks-Release-output-files.xcfilelist
+│           ├── Pods-ChartViewController-frameworks.sh
+│           ├── Pods-ChartViewController-umbrella.h
+│           ├── Pods-ChartViewController.debug.xcconfig
+│           ├── Pods-ChartViewController.modulemap
+│           └── Pods-ChartViewController.release.xcconfig
+├── Resources
+├── Services
+├── Storyboards
+├── Utilities
+├── Views
+└── project_structure.txt
+
+45 directories, 240 files

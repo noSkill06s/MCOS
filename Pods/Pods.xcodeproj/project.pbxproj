@@ -354,7 +354,7 @@
 		99B243BBE334424B8D63CEC3AD81DCFC /* CPTNumericData.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CPTNumericData.m; path = framework/Source/CPTNumericData.m; sourceTree = "<group>"; };
 		9A105F0E8329B3245BC25735742D6B75 /* CPTMutableLineStyle.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CPTMutableLineStyle.m; path = framework/Source/CPTMutableLineStyle.m; sourceTree = "<group>"; };
 		9CD6D2E2A2F3E282C3F9818B9900ED91 /* CPTXYAxis.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CPTXYAxis.h; path = framework/Source/CPTXYAxis.h; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9D9583508AE1D319D686F8899AED594C /* _CPTAnimationCGSizePeriod.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = _CPTAnimationCGSizePeriod.h; path = framework/Source/_CPTAnimationCGSizePeriod.h; sourceTree = "<group>"; };
 		9FF5BC1C9CE2D23DF5E31F5ADC6D336A /* CPTExceptions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CPTExceptions.h; path = framework/Source/CPTExceptions.h; sourceTree = "<group>"; };
 		A6981201A044D06A3E5853FAF2D46E2A /* CPTTextStylePlatformSpecific.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CPTTextStylePlatformSpecific.m; path = framework/iPhoneOnly/CPTTextStylePlatformSpecific.m; sourceTree = "<group>"; };
@@ -399,7 +399,7 @@
 		D56F8E3F8CC43E954DF9A242BA2FA0D3 /* CPTLegendEntry.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CPTLegendEntry.m; path = framework/Source/CPTLegendEntry.m; sourceTree = "<group>"; };
 		D60FF0B3A52C5EC2F2D7E26366342A5B /* _CPTFillGradient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = _CPTFillGradient.h; path = framework/Source/_CPTFillGradient.h; sourceTree = "<group>"; };
 		D65D78C83BBA6BD6A9349D77C43835A3 /* CPTTimeFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CPTTimeFormatter.m; path = framework/Source/CPTTimeFormatter.m; sourceTree = "<group>"; };
-		D7DB1281B47952393EC6638394696D1A /* CorePlot */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CorePlot; path = CorePlot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7DB1281B47952393EC6638394696D1A /* CorePlot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CorePlot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7F77E28CED5143F248BFCBA28BDC860 /* CPTMutableTextStyle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CPTMutableTextStyle.h; path = framework/Source/CPTMutableTextStyle.h; sourceTree = "<group>"; };
 		D9319A77B069C11E7CEA958667AB8593 /* _CPTDarkGradientTheme.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = _CPTDarkGradientTheme.m; path = framework/Source/_CPTDarkGradientTheme.m; sourceTree = "<group>"; };
 		D961EA6D836E19F08CE893FE73150D81 /* _CPTAnimationNSDecimalPeriod.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = _CPTAnimationNSDecimalPeriod.m; path = framework/Source/_CPTAnimationNSDecimalPeriod.m; sourceTree = "<group>"; };
@@ -471,7 +471,7 @@
 		1DE834685F94CD39D9298E2F927A397F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D7DB1281B47952393EC6638394696D1A /* CorePlot */,
+				D7DB1281B47952393EC6638394696D1A /* CorePlot.framework */,
 				DB727C1ED99C91E4BB0386CF000AA357 /* Pods-ChartViewController */,
 			);
 			name = Products;
@@ -683,7 +683,6 @@
 				BAFF570A09374CE28FC9F293FE7D8DC3 /* NSNumberExtensions.m */,
 				9014EC2E331016D12759D2ACDBC1470B /* Support Files */,
 			);
-			name = CorePlot;
 			path = CorePlot;
 			sourceTree = "<group>";
 		};
@@ -883,7 +882,7 @@
 			);
 			name = CorePlot;
 			productName = CorePlot;
-			productReference = D7DB1281B47952393EC6638394696D1A /* CorePlot */;
+			productReference = D7DB1281B47952393EC6638394696D1A /* CorePlot.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		A0E8D4772848EF6028590696AD844561 /* Pods-ChartViewController */ = {
@@ -1155,7 +1154,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/CorePlot/CorePlot-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/CorePlot/CorePlot-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1228,7 +1227,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/CorePlot/CorePlot-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/CorePlot/CorePlot-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
