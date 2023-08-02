@@ -24,7 +24,6 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate {
                 self?.plotData = data
                 DispatchQueue.main.async {
                     self?.initializeGraph()
-                    self?.configurePlot() // Rufen Sie configurePlot() hier auf
                 }
             case .failure(let error):
                 print("Error fetching data: \(error)") // Debug-Ausgabe
@@ -35,7 +34,7 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate {
     func initializeGraph(){
         print("Configuring graph view")
         configureGraphView()
-        //configurePlot()
+        configurePlot() // Hey ChatGPT hier das meine ich und dann rufen wir sie hier wieder auf ist das okay?
     }
        
     func configureGraphView(){
@@ -49,9 +48,9 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate {
         print("graphView.hostedGraph: \(String(describing: graphView.hostedGraph))") // Debug-Ausgabe
         graph.backgroundColor = UIColor.black.cgColor
         graph.paddingBottom = 40.0
-        graph.paddingLeft = 40.0
+        graph.paddingLeft = 50.0 // ursprünglich 40
         graph.paddingTop = 30.0
-        graph.paddingRight = 15.0
+        graph.paddingRight = 5.0 // ursprünglich 15
         
         //Style for graph title
         let titleStyle = CPTMutableTextStyle()
@@ -77,12 +76,19 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate {
         let yMin = plotData.min(by: { $0.close < $1.close })?.close ?? 0
         let yMax = plotData.max(by: { $0.close < $1.close })?.close ?? 0
 
-        let yMinAdjusted = yMin - (yMin * 0.05)
-        let yMaxAdjusted = yMax + (yMax * 0.05)
+        let yRange = yMax - yMin
+        let paddingPercentage = 0.05 // 5% Padding
+
+        let yMinAdjusted = yMin - (yRange * paddingPercentage)
+        let yMaxAdjusted = yMax + (yRange * paddingPercentage)
+        let adjustedRange = yMaxAdjusted - yMinAdjusted
+        let majorInterval = adjustedRange / 10.0 // Teilt den Bereich in 10 Intervalle
 
         guard let plotSpace = graph.defaultPlotSpace as? CPTXYPlotSpace else { return }
-        plotSpace.xRange = CPTPlotRange(locationDecimal: CPTDecimalFromDouble(xMin), lengthDecimal: CPTDecimalFromDouble(xMax - xMin))
+        plotSpace.xRange = CPTPlotRange(locationDecimal: CPTDecimalFromDouble(xMin), lengthDecimal: CPTDecimalFromDouble(xMax - xMin)) // Set xRange
         plotSpace.yRange = CPTPlotRange(locationDecimal: CPTDecimalFromDouble(yMinAdjusted), lengthDecimal: CPTDecimalFromDouble(yMaxAdjusted - yMinAdjusted))
+
+
         
         // Configure axes
         let axisSet = graph.axisSet as! CPTXYAxisSet
@@ -108,11 +114,32 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate {
             x.axisLineStyle = lineStyle
             x.axisConstraints = CPTConstraints(lowerOffset: 0.0)
             x.delegate = self
+
+            // Set the x-axis to display dates
+            x.labelingPolicy = .none
+
+            // Create custom labels for each data point
+            var customLabels = Set<CPTAxisLabel>()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss" // Use the full format to extract the date
+            let labelFormatter = DateFormatter()
+            labelFormatter.dateFormat = "HH:mm" // Use the short format for the label
+            for dataPoint in plotData {
+                let labelTextStyle = CPTMutableTextStyle()
+                labelTextStyle.color = CPTColor.white()
+                labelTextStyle.fontSize = 10.0
+                let date = dateFormatter.date(from: dataPoint.date) ?? Date()
+                let label = CPTAxisLabel(text: labelFormatter.string(from: date), textStyle: labelTextStyle) // Use the short format here
+                label.tickLocation = NSNumber(value: date.timeIntervalSince1970)
+                label.offset = 3.0
+                customLabels.insert(label)
+            }
+            x.axisLabels = customLabels
         }
 
         if let y = axisSet.yAxis {
             print("Configuring y-axis")
-            y.majorIntervalLength   = 5 // Dieser Wert hängt von dem Bereich Ihrer Schlusskurse ab und sollte entsprechend angepasst werden
+            y.majorIntervalLength = NSNumber(value: majorInterval) // Setzen Sie den berechneten Wert hier
             y.minorTicksPerInterval = 5 // Dieser Wert hängt von dem Bereich Ihrer Schlusskurse ab und sollte entsprechend angepasst werden
             y.minorGridLineStyle = gridLineStyle
             y.labelTextStyle = axisTextStyle
