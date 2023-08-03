@@ -10,7 +10,7 @@ import Foundation
 class StockDataFetcher {
     func fetch(completion: @escaping (Result<[(date: String, close: Double)], Error>) -> Void) {
         // Definiere die URL, die du abrufen möchtest.
-        let url = URL(string: "https://financialmodelingprep.com/api/v3/historical-chart/5min/AAPL?apikey=87508d18defb2ad368deda0763edaaab")!
+        let url = URL(string: "https://financialmodelingprep.com/api/v3/historical-chart/5min/META?apikey=87508d18defb2ad368deda0763edaaab")!
 
         // Erstelle eine "Task", die die eigentliche Netzwerkanfrage durchführt.
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in

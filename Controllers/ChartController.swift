@@ -6,7 +6,7 @@
 //
 import CorePlot
 import UIKit
-
+/**testtesettest**/
 
 class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate {
     
@@ -21,7 +21,24 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate {
             switch result {
             case .success(let data):
                 print("Data fetched successfully: \(data)") // Debug-Ausgabe
-                self?.plotData = data
+                
+                // Finde den letzten Zeitpunkt, an dem Handelsdaten verfügbar sind
+                guard let lastTradingDate = data.last?.date else { return }
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                guard let lastTradingDateTime = dateFormatter.date(from: lastTradingDate) else { return }
+                
+                // Filter the data to only include the last 4 trading hours
+                let fourHoursBeforeLastTrade = lastTradingDateTime.addingTimeInterval(-4 * 60 * 60)
+                
+                self?.plotData = data.filter { dataPoint in
+                    if let date = dateFormatter.date(from: dataPoint.date) {
+                        return date >= fourHoursBeforeLastTrade
+                    }
+                    return false
+                }
+                
                 DispatchQueue.main.async {
                     self?.initializeGraph()
                 }
@@ -30,7 +47,7 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate {
             }
         }
     }
-    
+
     func initializeGraph(){
         print("Configuring graph view")
         configureGraphView()
@@ -88,8 +105,6 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate {
         plotSpace.xRange = CPTPlotRange(locationDecimal: CPTDecimalFromDouble(xMin), lengthDecimal: CPTDecimalFromDouble(xMax - xMin)) // Set xRange
         plotSpace.yRange = CPTPlotRange(locationDecimal: CPTDecimalFromDouble(yMinAdjusted), lengthDecimal: CPTDecimalFromDouble(yMaxAdjusted - yMinAdjusted))
 
-
-        
         // Configure axes
         let axisSet = graph.axisSet as! CPTXYAxisSet
         
@@ -125,14 +140,17 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate {
             let labelFormatter = DateFormatter()
             labelFormatter.dateFormat = "HH:mm" // Use the short format for the label
             for dataPoint in plotData {
-                let labelTextStyle = CPTMutableTextStyle()
-                labelTextStyle.color = CPTColor.white()
-                labelTextStyle.fontSize = 10.0
                 let date = dateFormatter.date(from: dataPoint.date) ?? Date()
-                let label = CPTAxisLabel(text: labelFormatter.string(from: date), textStyle: labelTextStyle) // Use the short format here
-                label.tickLocation = NSNumber(value: date.timeIntervalSince1970)
-                label.offset = 3.0
-                customLabels.insert(label)
+                let calendar = Calendar.current
+                if calendar.component(.minute, from: date) == 0 { // Only add label for full hours
+                    let labelTextStyle = CPTMutableTextStyle()
+                    labelTextStyle.color = CPTColor.white()
+                    labelTextStyle.fontSize = 10.0
+                    let label = CPTAxisLabel(text: labelFormatter.string(from: date), textStyle: labelTextStyle) // Use the short format here
+                    label.tickLocation = NSNumber(value: date.timeIntervalSince1970)
+                    label.offset = 3.0
+                    customLabels.insert(label)
+                }
             }
             x.axisLabels = customLabels
         }
