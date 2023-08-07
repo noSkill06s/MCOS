@@ -136,8 +136,6 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate {
             }
         }
     }
-
-
     
     
     func initializeGraph(){
