@@ -16,14 +16,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wD7-T7-dYh" customClass="CPTGraphHostingView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wD7-T7-dYh" customClass="CPTGraphHostingView">
                                 <rect key="frame" x="16" y="59" width="361" height="323"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="txN-Nm-LcP">
+                                <rect key="frame" x="112" y="783" width="169" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Timeframe"/>
+                                <connections>
+                                    <action selector="timeFrameButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hCr-tA-fy5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="wD7-T7-dYh" secondAttribute="bottom" constant="470" id="6mt-r4-SU7"/>
+                            <constraint firstItem="wD7-T7-dYh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ALe-BV-NP6"/>
+                            <constraint firstItem="wD7-T7-dYh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="FEM-GL-djk"/>
+                            <constraint firstItem="txN-Nm-LcP" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Ljh-A6-ZKB"/>
+                            <constraint firstItem="txN-Nm-LcP" firstAttribute="centerX" secondItem="wD7-T7-dYh" secondAttribute="centerX" id="XeQ-Ud-yIm"/>
+                            <constraint firstItem="txN-Nm-LcP" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="pml-tR-ajt"/>
+                            <constraint firstItem="txN-Nm-LcP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="112" id="sqK-tq-jhe"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="graphView" destination="wD7-T7-dYh" id="PGe-Ow-GZp"/>
@@ -31,7 +47,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="202.29007633587784" y="-33.802816901408455"/>
+            <point key="canvasLocation" x="339.69465648854958" y="-78.16901408450704"/>
         </scene>
     </scenes>
     <resources>

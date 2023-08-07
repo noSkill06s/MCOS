@@ -6,11 +6,11 @@
 //
 import CorePlot
 import UIKit
-/**testtesettest**/
 
 class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate {
     
     enum TimeFrame {
+        case oneMinutes
         case fiveMinutes
         case fifteenMinutes
         case thirtyMinutes
@@ -24,6 +24,8 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate {
         var dateToCompare: Date
 
         switch timeFrame {
+        case.oneMinutes:
+            dateToCompare = now.addingTimeInterval(-1 * 60)
         case .fiveMinutes:
             dateToCompare = now.addingTimeInterval(-5 * 60)
         case .fifteenMinutes:
@@ -52,15 +54,63 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate {
     var plotData: [(date: String, close: Double)] = []
     @IBOutlet var graphView: CPTGraphHostingView!
  
+
+    @IBAction func timeFrameButtonTapped(_ sender: UIButton) {
+        let actionSheet = UIAlertController(title: "Select Time Frame", message: nil, preferredStyle: .actionSheet)
+        
+        let timeFrames: [TimeFrame] = [.oneMinutes, .fiveMinutes, .fifteenMinutes, .thirtyMinutes, .oneHour, .fourHours, .oneDay]
+        for timeFrame in timeFrames {
+            let actionTitle: String
+            switch timeFrame {
+            case .oneMinutes: actionTitle = "1 Minutes"
+            case .fiveMinutes: actionTitle = "5 Minutes"
+            case .fifteenMinutes: actionTitle = "15 Minutes"
+            case .thirtyMinutes: actionTitle = "30 Minutes"
+            case .oneHour: actionTitle = "1 Hour"
+            case .fourHours: actionTitle = "4 Hours"
+            case .oneDay: actionTitle = "1 Day"
+            }
+            let action = UIAlertAction(title: actionTitle, style: .default) { _ in
+                self.loadChartData(with: timeFrame)
+            }
+            actionSheet.addAction(action)
+        }
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        actionSheet.addAction(cancelAction)
+        
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // Lade Daten für den Standardzeitrahmen (1 Tag) beim Start
+        loadChartData(with: .fiveMinutes)
+
+    }
+
+    func loadChartData(with timeFrame: TimeFrame) {
+        // Ändere die URL basierend auf dem ausgewählten Zeitrahmen
+        let timeFrameParameter: String
+        switch timeFrame {
+        case .oneMinutes: timeFrameParameter = "1min"
+        case .fiveMinutes: timeFrameParameter = "5min"
+        case .fifteenMinutes: timeFrameParameter = "15min"
+        case .thirtyMinutes: timeFrameParameter = "30min"
+        case .oneHour: timeFrameParameter = "1hour"
+        case .fourHours: timeFrameParameter = "4hour"
+        case .oneDay: timeFrameParameter = "1day"
+        }
+
+        let url = URL(string: "https://financialmodelingprep.com/api/v3/historical-chart/\(timeFrameParameter)/META?apikey=87508d18defb2ad368deda0763edaaab")!
+
+        // Rufe die Daten von der API ab und aktualisiere den Plot
         let fetcher = StockDataFetcher()
-        fetcher.fetch { [weak self] result in
+        fetcher.fetch(url: url) { [weak self] result in
             switch result {
             case .success(let data):
-                print("Data fetched successfully: \(data)") // Debug-Ausgabe
-                
                 // Finde den letzten Zeitpunkt, an dem Handelsdaten verfügbar sind
                 guard let lastTradingDate = data.last?.date else { return }
                 
@@ -77,7 +127,7 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate {
                     }
                     return false
                 }
-                
+
                 DispatchQueue.main.async {
                     self?.initializeGraph()
                 }
@@ -87,6 +137,9 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate {
         }
     }
 
+
+    
+    
     func initializeGraph(){
         print("Configuring graph view")
         configureGraphView()
