@@ -126,7 +126,7 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate {
                         return date >= fourHoursBeforeLastTrade
                     }
                     return false
-                }
+                } 
 
                 DispatchQueue.main.async {
                     self?.initializeGraph()
