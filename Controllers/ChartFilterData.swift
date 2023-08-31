@@ -3,11 +3,9 @@
 //  ChartViewController
 //
 //  Created by Burhan Cankurt on 07.08.23.
-//  Hallo Aleyna seni seviyorum
+//  
 
 import Foundation
-
-print("Aleyna seni seviyorum")
 
 enum TimeFrame {
     case oneMinutes
