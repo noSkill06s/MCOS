@@ -9,14 +9,12 @@ import CorePlot
 import UIKit
 
 func configureGraphView(for graphView: CPTGraphHostingView, plotData: [(date: String, close: Double)], delegate: CPTAxisDelegate) {
-    print("Inside configureGraphView")
     graphView.allowPinchScaling = false
             
     // Configure graph
     let graph = CPTXYGraph(frame: graphView.bounds)
     graph.plotAreaFrame?.masksToBorder = false
     graphView.hostedGraph = graph
-    print("graphView.hostedGraph: \(String(describing: graphView.hostedGraph))") // Debug-Ausgabe
     graph.backgroundColor = UIColor.black.cgColor
     graph.paddingBottom = 40.0
     graph.paddingLeft = 50.0 // ursprünglich 40
@@ -75,7 +73,6 @@ func configureGraphView(for graphView: CPTGraphHostingView, plotData: [(date: St
     gridLineStyle.lineWidth = 0.5
 
     if let x = axisSet.xAxis {
-        print("Configuring x-axis")
         x.majorIntervalLength   = 1
         x.minorTicksPerInterval = 0
         x.labelTextStyle = axisTextStyle
@@ -110,7 +107,6 @@ func configureGraphView(for graphView: CPTGraphHostingView, plotData: [(date: St
     }
 
     if let y = axisSet.yAxis {
-        print("Configuring y-axis")
         y.majorIntervalLength = NSNumber(value: majorInterval) // Setzen Sie den berechneten Wert hier
         y.minorTicksPerInterval = 5 // Dieser Wert hängt von dem Bereich Ihrer Schlusskurse ab und sollte entsprechend angepasst werden
         y.minorGridLineStyle = gridLineStyle

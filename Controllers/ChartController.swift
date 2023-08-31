@@ -30,6 +30,7 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate, 
             switch result {
             case .success(let data):
                 self?.plotData = data
+                print("loadChartData count: ",data.count)
                 DispatchQueue.main.async {
                     self?.initializeGraph()
                 }
@@ -49,7 +50,6 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate, 
 extension ChartController: CPTScatterPlotDataSource, CPTScatterPlotDelegate {
     func numberOfRecords(for plot: CPTPlot) -> UInt {
         let count = UInt(self.plotData.count)
-        print("numberOfRecords called, returning \(count)")
         return count
     }
 
@@ -59,15 +59,12 @@ extension ChartController: CPTScatterPlotDataSource, CPTScatterPlotDelegate {
         
         switch CPTScatterPlotField(rawValue: Int(field))! {
         case .X:
-            print("number(for:field:record:) called for X field, record \(record)")
             let date = dateFormatter.date(from: plotData[Int(record)].date) ?? Date()
             return NSNumber(value: date.timeIntervalSince1970)
         case .Y:
             let yValue = self.plotData[Int(record)].close
-            print("number(for:field:record:) called for Y field, record \(record), returning \(yValue)")
             return yValue as NSNumber
         default:
-            print("number(for:field:record:) called for unexpected field")
             return 0
         }
     }

@@ -9,7 +9,6 @@ import CorePlot
 import UIKit
 
 func configurePlot(for graphView: CPTGraphHostingView, dataSource: CPTScatterPlotDataSource, delegate: CPTScatterPlotDelegate) {
-    print("Inside configurePlot") // Debug-Ausgabe
     let plot = CPTScatterPlot()
     let plotLineStile = CPTMutableLineStyle()
     plotLineStile.lineJoin = .round
