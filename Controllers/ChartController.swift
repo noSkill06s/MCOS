@@ -9,28 +9,28 @@ import CorePlot
 import UIKit
 
 class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate, CPTAxisDelegate {
-/*----------------------------------------------------------------------------------------------------------------------------------------*/
     var plotData: [(date: String, close: Double)] = []
     @IBOutlet var graphView: CPTGraphHostingView!
-/*----------------------------------------------------------------------------------------------------------------------------------------*/
+
     @IBAction func timeFrameButtonTapped(_ sender: UIButton) {
         presentTimeFrameSelector(in: self) { timeFrame in
             self.loadChartData(with: timeFrame)
         }
     }
-/*----------------------------------------------------------------------------------------------------------------------------------------*/
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadChartData(with: .fiveMinutes)
+        loadChartData(with: .fifteenMinutes)
     }
-/*----------------------------------------------------------------------------------------------------------------------------------------*/
+
     func loadChartData(with timeFrame: TimeFrame) {
         let fetcher = StockDataFetcher()
         loadChartDataGlobal(with: timeFrame, fetcher: fetcher) { [weak self] result in
             switch result {
             case .success(let data):
-                self?.plotData = data
-                print("loadChartData count: ",data.count)
+                print("\(data)")
+                // Reduzieren Sie die Daten auf die letzten 48 Datenpunkte
+                self?.plotData = Array(data.suffix(48))
                 DispatchQueue.main.async {
                     self?.initializeGraph()
                 }
@@ -39,14 +39,13 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate, 
             }
         }
     }
-/*----------------------------------------------------------------------------------------------------------------------------------------*/
+
     func initializeGraph() {
-        print("Configuring graph view")
         configureGraphView(for: graphView, plotData: plotData, delegate: self)
         configurePlot(for: graphView, dataSource: self, delegate: self)
     }
 }
-/*----------------------------------------------------------------------------------------------------------------------------------------*/
+
 extension ChartController: CPTScatterPlotDataSource, CPTScatterPlotDelegate {
     func numberOfRecords(for plot: CPTPlot) -> UInt {
         let count = UInt(self.plotData.count)
@@ -59,8 +58,7 @@ extension ChartController: CPTScatterPlotDataSource, CPTScatterPlotDelegate {
         
         switch CPTScatterPlotField(rawValue: Int(field))! {
         case .X:
-            let date = dateFormatter.date(from: plotData[Int(record)].date) ?? Date()
-            return NSNumber(value: date.timeIntervalSince1970)
+            return NSNumber(value: Int(record)) // Ändern Sie dies, um den Index zu verwenden
         case .Y:
             let yValue = self.plotData[Int(record)].close
             return yValue as NSNumber

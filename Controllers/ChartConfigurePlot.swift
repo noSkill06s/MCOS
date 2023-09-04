@@ -24,3 +24,4 @@ func configurePlot(for graphView: CPTGraphHostingView, dataSource: CPTScatterPlo
     plot.delegate = delegate
     graph.add(plot, to: graph.defaultPlotSpace)
 }
+

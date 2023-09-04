@@ -26,32 +26,10 @@ func loadChartDataGlobal(with timeFrame: TimeFrame, fetcher: StockDataFetcher, c
     fetcher.fetch(url: url) { result in
         switch result {
         case .success(let data):
-            // Finde den letzten Zeitpunkt, an dem Handelsdaten verfügbar sind
-            guard let lastTradingDate = data.last?.date else {
-                completion(.failure(NSError(domain: "DateError", code: 1001, userInfo: nil)))
-                return
-            }
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            guard let lastTradingDateTime = dateFormatter.date(from: lastTradingDate) else {
-                completion(.failure(NSError(domain: "DateError", code: 1002, userInfo: nil)))
-                return
-            }
-            
-            // Filter the data to only include the last 4 trading hours
-            let fourHoursBeforeLastTrade = lastTradingDateTime.addingTimeInterval(-4 * 60 * 60)
-            
-            let filteredData = data.filter { dataPoint in
-                if let date = dateFormatter.date(from: dataPoint.date) {
-                    return date >= fourHoursBeforeLastTrade
-                }
-                return false
-            }
-
-            completion(.success(filteredData))
+            completion(.success(data))
         case .failure(let error):
             completion(.failure(error)) // Debug-Ausgabe
         }
     }
 }
+

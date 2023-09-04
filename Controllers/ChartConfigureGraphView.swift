@@ -36,11 +36,8 @@ func configureGraphView(for graphView: CPTGraphHostingView, plotData: [(date: St
     graph.titleDisplacement = CGPoint(x: 0.0, y: 0.0)
 
     // Set plot space
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-
-    let xMin = dateFormatter.date(from: plotData.first?.date ?? "")?.timeIntervalSince1970 ?? 0
-    let xMax = dateFormatter.date(from: plotData.last?.date ?? "")?.timeIntervalSince1970 ?? 0
+    let xMin = 0.0 // Starten Sie von 0
+    let xMax = Double(plotData.count) // Die maximale Zahl ist die Anzahl der Datenpunkte
 
     let yMin = plotData.min(by: { $0.close < $1.close })?.close ?? 0
     let yMax = plotData.max(by: { $0.close < $1.close })?.close ?? 0
@@ -73,7 +70,7 @@ func configureGraphView(for graphView: CPTGraphHostingView, plotData: [(date: St
     gridLineStyle.lineWidth = 0.5
 
     if let x = axisSet.xAxis {
-        x.majorIntervalLength   = 1
+        x.majorIntervalLength   = 1.0 // Setzen Sie das Intervall auf 1, da jeder Punkt einen Abstand von 1 hat
         x.minorTicksPerInterval = 0
         x.labelTextStyle = axisTextStyle
         x.minorGridLineStyle = gridLineStyle
@@ -81,29 +78,24 @@ func configureGraphView(for graphView: CPTGraphHostingView, plotData: [(date: St
         x.axisConstraints = CPTConstraints(lowerOffset: 0.0)
         x.delegate = delegate
 
-        // Set the x-axis to display dates
         x.labelingPolicy = .none
+        x.labelRotation = CGFloat(Double.pi / 4) // Drehen Sie die Labels für bessere Sichtbarkeit
 
-        // Create custom labels for each data point
-        var customLabels = Set<CPTAxisLabel>()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss" // Use the full format to extract the date
-        let labelFormatter = DateFormatter()
-        labelFormatter.dateFormat = "HH:mm" // Use the short format for the label
-        for dataPoint in plotData {
-            let date = dateFormatter.date(from: dataPoint.date) ?? Date()
-            let calendar = Calendar.current
-            if calendar.component(.minute, from: date) == 0 { // Only add label for full hours
-                let labelTextStyle = CPTMutableTextStyle()
-                labelTextStyle.color = CPTColor.white()
-                labelTextStyle.fontSize = 10.0
-                let label = CPTAxisLabel(text: labelFormatter.string(from: date), textStyle: labelTextStyle) // Use the short format here
-                label.tickLocation = NSNumber(value: date.timeIntervalSince1970)
-                label.offset = 3.0
-                customLabels.insert(label)
+        // Setzen Sie die Labels manuell
+        var customLabels: [CPTAxisLabel] = []
+        for (index, data) in plotData.enumerated() {
+            if index % 5 == 0 { // Zum Beispiel alle 5 Punkte, Sie können dies nach Bedarf anpassen
+                let labelText = data.date
+                let labelValue = NSNumber(value: index)
+                let newLabel = CPTAxisLabel(text: labelText, textStyle: x.labelTextStyle)
+                newLabel.tickLocation = labelValue
+                newLabel.offset = x.labelOffset + x.majorTickLength
+                newLabel.rotation = CGFloat(Double.pi / 4)
+                customLabels.append(newLabel)
             }
         }
-        x.axisLabels = customLabels
+
+        x.axisLabels = Set(customLabels)
     }
 
     if let y = axisSet.yAxis {
