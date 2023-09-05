@@ -17,7 +17,7 @@ func configurePlot(for graphView: CPTGraphHostingView, dataSource: CPTScatterPlo
     plotLineStile.lineColor = CPTColor.white()
     plot.dataLineStyle = plotLineStile
     plot.curvedInterpolationOption = .catmullCustomAlpha
-    plot.interpolation = .curved
+    plot.interpolation = .linear
     plot.identifier = "coreplot-graph" as NSCoding & NSCopying & NSObjectProtocol
     guard let graph = graphView.hostedGraph else { return }
     plot.dataSource = dataSource
