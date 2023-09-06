@@ -7,7 +7,7 @@
 
 import Foundation
 
-func loadChartDataGlobal(with timeFrame: TimeFrame, fetcher: StockDataFetcher, completion: @escaping (Result<[(date: String, close: Double)], Error>) -> Void) {
+func loadChartDataGlobal(with timeFrame: TimeFrame, fetcher: StockDataFetcher, completion: @escaping (Result<[StockDataPoint], Error>) -> Void) {
     // Ändere die URL basierend auf dem ausgewählten Zeitrahmen
     let timeFrameParameter: String
     switch timeFrame {

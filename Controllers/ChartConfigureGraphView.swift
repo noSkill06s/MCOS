@@ -8,7 +8,7 @@
 import CorePlot
 import UIKit
 
-func configureGraphView(for graphView: CPTGraphHostingView, plotData: [(date: String, close: Double)], delegate: CPTAxisDelegate) {
+func configureGraphView(for graphView: CPTGraphHostingView, plotData: [StockDataPoint], delegate: CPTAxisDelegate) {
     graphView.allowPinchScaling = false
             
     // Configure graph

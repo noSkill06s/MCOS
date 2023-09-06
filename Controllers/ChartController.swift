@@ -3,14 +3,14 @@
 //  ChartViewController
 //
 //  Created by Burhan Cankurt on 08.08.23.
-
+//test
 
 import CorePlot
 import UIKit
 
 class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate, CPTAxisDelegate {
     
-    var plotData: [(date: String, close: Double)] = []
+    var plotData: [StockDataPoint] = []
     @IBOutlet var graphView: CPTGraphHostingView!
     var updateTimer: Timer?
 
@@ -55,6 +55,7 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate, 
             switch result {
             case .success(let data):
                 guard let lastDataPoint = data.last else { return }
+                
                 // Überprüfen, ob der letzte Datenpunkt im `plotData` Array aktualisiert werden muss oder ein neuer hinzugefügt werden muss
                 if self?.plotData.last?.date == lastDataPoint.date {
                     self?.plotData[self!.plotData.count - 1] = lastDataPoint
@@ -68,10 +69,16 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate, 
                     self?.graphView.hostedGraph?.reloadData()
                 }
             case .failure(let error):
-                print("Error fetching data: \(error)")
+                if let dataError = error as? DataError, dataError == .unchanged {
+                    // Wenn die Daten unverändert sind, tun wir nichts.
+                    return
+                } else {
+                    print("Error fetching data: \(error)")
+                }
             }
         }
     }
+
 
     
     override func viewWillDisappear(_ animated: Bool) {

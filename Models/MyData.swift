@@ -11,3 +11,8 @@ struct MyData: Decodable {
     let date: String
     let close: Double
 }
+
+struct StockDataPoint: Equatable {
+    let date: String
+    let close: Double
+}
