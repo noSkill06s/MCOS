@@ -90,26 +90,50 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate, 
 }
 
 extension ChartController: CPTScatterPlotDataSource, CPTScatterPlotDelegate {
+    
     func numberOfRecords(for plot: CPTPlot) -> UInt {
-        let count = UInt(self.plotData.count)
-        return count
+        if plot.identifier as? String == "last-point-plot" {
+            return 1 // Nur ein Punkt für den speziellen Plot
+        }
+        return UInt(self.plotData.count)
     }
-
+    
     func number(for plot: CPTPlot, field: UInt, record: UInt) -> Any? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        if plot.identifier as? String == "last-point-plot" {
+            guard let lastDataPoint = self.plotData.last else { return nil }
+            switch CPTScatterPlotField(rawValue: Int(field))! {
+            case .X:
+                return NSNumber(value: self.plotData.count - 1)
+            case .Y:
+                return NSNumber(value: lastDataPoint.close)
+            default:
+                return nil
+            }
+        }
         
+        // Der restliche Code für den Hauptplot
         switch CPTScatterPlotField(rawValue: Int(field))! {
         case .X:
-            return NSNumber(value: Int(record)) // Ändern Sie dies, um den Index zu verwenden
+            return NSNumber(value: Int(record))
         case .Y:
             let yValue = self.plotData[Int(record)].close
             return yValue as NSNumber
         default:
-            return 0
+            return nil
         }
     }
+
+    func symbol(for plot: CPTScatterPlot, record idx: UInt) -> CPTPlotSymbol? {
+        if idx == self.plotData.count - 1 {  // Überprüfen, ob es der letzte Datenpunkt ist
+            let plotSymbol = CPTPlotSymbol.ellipse()
+            plotSymbol.fill = CPTFill(color: CPTColor.red())
+            plotSymbol.size = CGSize(width: 10.0, height: 10.0)
+            return plotSymbol
+        }
+        return nil  // Für andere Datenpunkte kein spezielles Symbol
+    }
 }
+
 
 
 
