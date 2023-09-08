@@ -3,7 +3,7 @@
 //  ChartViewController
 //
 //  Created by Burhan Cankurt on 08.08.23.
-//test
+//
 
 import CorePlot
 import UIKit
@@ -13,6 +13,8 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate, 
     var plotData: [StockDataPoint] = []
     @IBOutlet var graphView: CPTGraphHostingView!
     var updateTimer: Timer?
+    var pulsingTimer: Timer?
+    var lastPointSymbolSize: CGSize = CGSize(width: 13.0, height: 13.0)
 
     @IBAction func timeFrameButtonTapped(_ sender: UIButton) {
         presentTimeFrameSelector(in: self) { timeFrame in
@@ -24,6 +26,7 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate, 
         super.viewDidLoad()
         loadChartData(with: .fifteenMinutes)
         updateTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateLastDataPoint), userInfo: nil, repeats: true)
+        pulsingTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(startPulsingLastPoint), userInfo: nil, repeats: true)
     }
 
     func loadChartData(with timeFrame: TimeFrame) {
@@ -78,15 +81,33 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate, 
             }
         }
     }
-
-
     
+    @objc func startPulsingLastPoint() {
+        print("startPulsingLastPoint called")  // Debugging-Statement
+
+        let stepSize = CGFloat(0.5)
+        
+        // Verwenden Sie eine Bedingung, um zwischen den Größen zu wechseln
+        if lastPointSymbolSize.width > 10.0 {
+            lastPointSymbolSize = CGSize(width: lastPointSymbolSize.width - stepSize, height: lastPointSymbolSize.height - stepSize)
+        } else {
+            lastPointSymbolSize = CGSize(width: lastPointSymbolSize.width + stepSize, height: lastPointSymbolSize.height + stepSize)
+        }
+        
+        DispatchQueue.main.async {
+            self.graphView.hostedGraph?.reloadData()
+        }
+    }
+
+
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         updateTimer?.invalidate()
         updateTimer = nil
+        pulsingTimer?.invalidate()
+        pulsingTimer = nil
     }
-    
 }
 
 extension ChartController: CPTScatterPlotDataSource, CPTScatterPlotDelegate {
@@ -127,11 +148,13 @@ extension ChartController: CPTScatterPlotDataSource, CPTScatterPlotDelegate {
         if idx == self.plotData.count - 1 {  // Überprüfen, ob es der letzte Datenpunkt ist
             let plotSymbol = CPTPlotSymbol.ellipse()
             plotSymbol.fill = CPTFill(color: CPTColor.red())
-            plotSymbol.size = CGSize(width: 10.0, height: 10.0)
+            plotSymbol.size = lastPointSymbolSize  // Verwenden Sie die Instanzvariable
             return plotSymbol
         }
         return nil  // Für andere Datenpunkte kein spezielles Symbol
     }
+
+
 }
 
 
