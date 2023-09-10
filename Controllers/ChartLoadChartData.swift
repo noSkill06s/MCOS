@@ -7,7 +7,7 @@
 
 import Foundation
 
-func loadChartDataGlobal(with timeFrame: TimeFrame, fetcher: StockDataFetcher, completion: @escaping (Result<[StockDataPoint], Error>) -> Void) {
+func loadChartDataGlobal(with timeFrame: TimeFrame, searchStock: String,fetcher: StockDataFetcher, completion: @escaping (Result<[StockDataPoint], Error>) -> Void) {
     // Ändere die URL basierend auf dem ausgewählten Zeitrahmen
     let timeFrameParameter: String
     switch timeFrame {
@@ -20,7 +20,8 @@ func loadChartDataGlobal(with timeFrame: TimeFrame, fetcher: StockDataFetcher, c
     case .oneDay: timeFrameParameter = "1day"
     }
 
-    let url = URL(string: "https://financialmodelingprep.com/api/v3/historical-chart/\(timeFrameParameter)/META?apikey=87508d18defb2ad368deda0763edaaab")!
+    let url = URL(string: "https://financialmodelingprep.com/api/v3/historical-chart/\(timeFrameParameter)/\(searchStock)?apikey=87508d18defb2ad368deda0763edaaab")!
+
 
     // Rufe die Daten von der API ab und aktualisiere den Plot
     fetcher.fetch(url: url) { result in

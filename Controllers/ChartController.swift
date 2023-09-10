@@ -10,8 +10,20 @@ import UIKit
 
 class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate, CPTAxisDelegate {
     
+    var searchStock = "META" //Hier kommt der Input dann vom SearchController aktuell pseudo AAPL
+    
     var plotData: [StockDataPoint] = []
+    var chartStockProfileArray: [StockProfile] = []
+    
     @IBOutlet var graphView: CPTGraphHostingView!
+    
+    @IBOutlet var stockProfileSymbol: UILabel!
+    @IBOutlet var stockProfileRange: UILabel! // aktualisieren bei jedem Datenpunkt
+    @IBOutlet var stockProfileChanges: UILabel! // aktualisieren bei jedem Datenpunkt
+    @IBOutlet var stockProfileCompanyName: UILabel!
+    @IBOutlet var stockProfileCurrency: UILabel!
+    @IBOutlet var stockProfileImage: UIImageView!
+    
     var updateTimer: Timer?
     var pulsingTimer: Timer?
     var lastPointSymbolSize: CGSize = CGSize(width: 13.0, height: 13.0)
@@ -25,16 +37,16 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         loadChartData(with: .fifteenMinutes)
+        loadStockProfile()
         updateTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateLastDataPoint), userInfo: nil, repeats: true)
         pulsingTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(startPulsingLastPoint), userInfo: nil, repeats: true)
     }
 
     func loadChartData(with timeFrame: TimeFrame) {
         let fetcher = StockDataFetcher()
-        loadChartDataGlobal(with: timeFrame, fetcher: fetcher) { [weak self] result in
+        loadChartDataGlobal(with: timeFrame, searchStock: self.searchStock, fetcher: fetcher) { [weak self] result in
             switch result {
             case .success(let data):
-                print("\(data.count)")
                 // Reduzieren Sie die Daten auf die letzten 48 Datenpunkte
                 self?.plotData = Array(data.suffix(48))
                 DispatchQueue.main.async {
@@ -46,15 +58,42 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate, 
         }
     }
 
+    func loadStockProfile() {
+        let profileFetcher = StockProfileFetcher()
+        profileFetcher.fetchProfile(for: searchStock) { [weak self] result in // "AAPL" ist hier nur ein Beispiel
+            switch result {
+            case .success(let profile):
+                DispatchQueue.main.async {
+                    self?.stockProfileSymbol.text = profile.symbol
+                    self?.stockProfileCompanyName.text = "   "+profile.companyName
+                    self?.stockProfileCurrency.text = profile.currency
+                    
+                    // Bild von URL laden
+                    if let url = URL(string: profile.image) {
+                        print("profile.image: \(url)")
+                        DispatchQueue.global().async {
+                            if let data = try? Data(contentsOf: url) {
+                                DispatchQueue.main.async {
+                                    self?.stockProfileImage.image = UIImage(data: data)
+                                }
+                            }
+                        }
+                    }
+                }
+            case .failure(let error):
+                print("Failed to fetch profile: \(error)")
+            }
+        }
+    }
+
     func initializeGraph() {
         configureGraphView(for: graphView, plotData: plotData, delegate: self)
         configurePlot(for: graphView, dataSource: self, delegate: self)
     }
     
     @objc func updateLastDataPoint() {
-        // Hier rufen wir die Daten für den letzten Datenpunkt ab und aktualisieren den Chart
         let fetcher = StockDataFetcher()
-        loadChartDataGlobal(with: .fifteenMinutes, fetcher: fetcher) { [weak self] result in
+        loadChartDataGlobal(with: .fifteenMinutes, searchStock: searchStock,fetcher: fetcher) { [weak self] result in
             switch result {
             case .success(let data):
                 guard let lastDataPoint = data.last else { return }
@@ -70,6 +109,17 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate, 
                 }
                 DispatchQueue.main.async {
                     self?.graphView.hostedGraph?.reloadData()
+                    
+                    // Aktualisieren des Bereichs (Range) und der Änderungen (Changes)
+                    if let lastDataPoint = self?.plotData.last {
+                        if let firstDataPoint = self?.plotData.first {
+                            let range = "\(firstDataPoint.close) - \(lastDataPoint.close)"
+                            self?.stockProfileRange.text = "   "+range
+                            
+                            let change = lastDataPoint.close - firstDataPoint.close
+                            self?.stockProfileChanges.text = String(format: "%.2f", change)
+                        }
+                    }
                 }
             case .failure(let error):
                 if let dataError = error as? DataError, dataError == .unchanged {
@@ -81,12 +131,10 @@ class ChartController: UIViewController, CPTBarPlotDataSource, CALayerDelegate, 
             }
         }
     }
+
     
     @objc func startPulsingLastPoint() {
-        print("startPulsingLastPoint called")  // Debugging-Statement
-
-        let stepSize = CGFloat(0.5)
-        
+        let stepSize = CGFloat(10.0)
         // Verwenden Sie eine Bedingung, um zwischen den Größen zu wechseln
         if lastPointSymbolSize.width > 10.0 {
             lastPointSymbolSize = CGSize(width: lastPointSymbolSize.width - stepSize, height: lastPointSymbolSize.height - stepSize)
@@ -147,14 +195,12 @@ extension ChartController: CPTScatterPlotDataSource, CPTScatterPlotDelegate {
     func symbol(for plot: CPTScatterPlot, record idx: UInt) -> CPTPlotSymbol? {
         if idx == self.plotData.count - 1 {  // Überprüfen, ob es der letzte Datenpunkt ist
             let plotSymbol = CPTPlotSymbol.ellipse()
-            plotSymbol.fill = CPTFill(color: CPTColor.red())
+            plotSymbol.fill = CPTFill(color: CPTColor.orange())
             plotSymbol.size = lastPointSymbolSize  // Verwenden Sie die Instanzvariable
             return plotSymbol
         }
         return nil  // Für andere Datenpunkte kein spezielles Symbol
     }
-
-
 }
 
 

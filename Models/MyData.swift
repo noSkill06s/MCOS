@@ -16,3 +16,12 @@ struct StockDataPoint: Equatable {
     let date: String
     let close: Double
 }
+
+struct StockProfile: Decodable {
+    let symbol: String
+    let range: String
+    let changes: Double
+    let companyName: String
+    let currency: String
+    let image: String
+}

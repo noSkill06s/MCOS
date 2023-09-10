@@ -29,12 +29,6 @@ func configureGraphView(for graphView: CPTGraphHostingView, plotData: [StockData
     titleStyle.textAlignment = .center
     graph.titleTextStyle = titleStyle
 
-    // Set graph title
-    let title = "CorePlot"
-    graph.title = title
-    graph.titlePlotAreaFrameAnchor = .top
-    graph.titleDisplacement = CGPoint(x: 0.0, y: 0.0)
-
     // Set plot space
     let xMin = 0.0 // Starten Sie von 0
     let xMax = Double(plotData.count) // Die maximale Zahl ist die Anzahl der Datenpunkte
@@ -66,8 +60,8 @@ func configureGraphView(for graphView: CPTGraphHostingView, plotData: [StockData
     lineStyle.lineColor = CPTColor.white()
     lineStyle.lineWidth = 5
     let gridLineStyle = CPTMutableLineStyle()
-    gridLineStyle.lineColor = CPTColor.gray()
-    gridLineStyle.lineWidth = 0.5
+    //gridLineStyle.lineColor = CPTColor.gray()
+    //gridLineStyle.lineWidth = 0.5
 
     if let x = axisSet.xAxis {
         x.majorIntervalLength   = 1.0 // Setzen Sie das Intervall auf 1, da jeder Punkt einen Abstand von 1 hat
