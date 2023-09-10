@@ -21,6 +21,10 @@
 		7B9BC0782A81A5040026FCE0 /* ChartConfigurePlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9BC0772A81A5040026FCE0 /* ChartConfigurePlot.swift */; };
 		7B9BC07A2A81BB170026FCE0 /* ChartLoadChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9BC0792A81BB170026FCE0 /* ChartLoadChartData.swift */; };
 		7B9BC07C2A81BDF10026FCE0 /* ChartTimeFrameButtonTapped.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9BC07B2A81BDF10026FCE0 /* ChartTimeFrameButtonTapped.swift */; };
+		7BC590BE2AAE3E9100B83C61 /* ChartLoadStockProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC590BD2AAE3E9100B83C61 /* ChartLoadStockProfile.swift */; };
+		7BC590C02AAE404000B83C61 /* ChartUpdateLastDataPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC590BF2AAE404000B83C61 /* ChartUpdateLastDataPoint.swift */; };
+		7BC590C22AAE523100B83C61 /* ChartStartPulsingLastPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC590C12AAE523100B83C61 /* ChartStartPulsingLastPoint.swift */; };
+		7BC590C42AAE822300B83C61 /* ChartDataLoadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC590C32AAE822300B83C61 /* ChartDataLoadManager.swift */; };
 		AE86C61137124398734CB0E3 /* Pods_ChartViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50537B757E048DF18AB0B77D /* Pods_ChartViewController.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +47,10 @@
 		7B9BC0772A81A5040026FCE0 /* ChartConfigurePlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartConfigurePlot.swift; sourceTree = "<group>"; };
 		7B9BC0792A81BB170026FCE0 /* ChartLoadChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartLoadChartData.swift; sourceTree = "<group>"; };
 		7B9BC07B2A81BDF10026FCE0 /* ChartTimeFrameButtonTapped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartTimeFrameButtonTapped.swift; sourceTree = "<group>"; };
+		7BC590BD2AAE3E9100B83C61 /* ChartLoadStockProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartLoadStockProfile.swift; sourceTree = "<group>"; };
+		7BC590BF2AAE404000B83C61 /* ChartUpdateLastDataPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartUpdateLastDataPoint.swift; sourceTree = "<group>"; };
+		7BC590C12AAE523100B83C61 /* ChartStartPulsingLastPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartStartPulsingLastPoint.swift; sourceTree = "<group>"; };
+		7BC590C32AAE822300B83C61 /* ChartDataLoadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDataLoadManager.swift; sourceTree = "<group>"; };
 		D6BE74C0B134D3C0E9BE5F15 /* Pods-ChartViewController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChartViewController.debug.xcconfig"; path = "Target Support Files/Pods-ChartViewController/Pods-ChartViewController.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,11 +103,15 @@
 			isa = PBXGroup;
 			children = (
 				7B55AEF52A7739E800F30AAB /* ChartController.swift */,
+				7BC590C12AAE523100B83C61 /* ChartStartPulsingLastPoint.swift */,
+				7BC590BF2AAE404000B83C61 /* ChartUpdateLastDataPoint.swift */,
+				7BC590BD2AAE3E9100B83C61 /* ChartLoadStockProfile.swift */,
 				7B9BC0792A81BB170026FCE0 /* ChartLoadChartData.swift */,
 				7B9BC0732A81A0AB0026FCE0 /* ChartFilterData.swift */,
 				7B9BC0752A81A1500026FCE0 /* ChartConfigureGraphView.swift */,
 				7B9BC0772A81A5040026FCE0 /* ChartConfigurePlot.swift */,
 				7B9BC07B2A81BDF10026FCE0 /* ChartTimeFrameButtonTapped.swift */,
+				7BC590C32AAE822300B83C61 /* ChartDataLoadManager.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -299,10 +311,14 @@
 				7B9BC0762A81A1500026FCE0 /* ChartConfigureGraphView.swift in Sources */,
 				7B8C9F8D2A75B9BC00E60F01 /* AppDelegate.swift in Sources */,
 				7B55AEF62A7739E800F30AAB /* ChartController.swift in Sources */,
+				7BC590C42AAE822300B83C61 /* ChartDataLoadManager.swift in Sources */,
 				7B992C052AAC04A2005CBA5D /* ChartStockProfileAPIFetcher.swift in Sources */,
 				7B9BC07A2A81BB170026FCE0 /* ChartLoadChartData.swift in Sources */,
+				7BC590C02AAE404000B83C61 /* ChartUpdateLastDataPoint.swift in Sources */,
+				7BC590C22AAE523100B83C61 /* ChartStartPulsingLastPoint.swift in Sources */,
 				7B38AB272A78875100A21E53 /* MyData.swift in Sources */,
 				7B9BC0782A81A5040026FCE0 /* ChartConfigurePlot.swift in Sources */,
+				7BC590BE2AAE3E9100B83C61 /* ChartLoadStockProfile.swift in Sources */,
 				7B9BC07C2A81BDF10026FCE0 /* ChartTimeFrameButtonTapped.swift in Sources */,
 				7B8C9F8F2A75B9BC00E60F01 /* SceneDelegate.swift in Sources */,
 			);

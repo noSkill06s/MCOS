@@ -27,7 +27,7 @@ func configurePlot(for graphView: CPTGraphHostingView, dataSource: CPTScatterPlo
     lastPointPlotLineStyle.lineJoin = .round
     lastPointPlotLineStyle.lineCap = .round
     lastPointPlotLineStyle.lineWidth = 4 // Größere Linienbreite
-    lastPointPlotLineStyle.lineColor = CPTColor.purple() // Rote Farbe für den letzten Punkt
+    lastPointPlotLineStyle.lineColor = CPTColor.white() // Rote Farbe für den letzten Punkt
     lastPointPlot.dataLineStyle = lastPointPlotLineStyle
     lastPointPlot.curvedInterpolationOption = .catmullCustomAlpha
     lastPointPlot.interpolation = .linear
