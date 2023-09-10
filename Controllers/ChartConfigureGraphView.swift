@@ -68,29 +68,20 @@ func configureGraphView(for graphView: CPTGraphHostingView, plotData: [StockData
         x.minorTicksPerInterval = 0
         x.labelTextStyle = axisTextStyle
         x.minorGridLineStyle = gridLineStyle
-        x.axisLineStyle = lineStyle
+        x.axisLineStyle = lineStyle  // Behalten Sie diese Zeile bei, um die Achsenlinie zu behalten
         x.axisConstraints = CPTConstraints(lowerOffset: 0.0)
         x.delegate = delegate
 
+        // Zeilen zum Ausblenden der Achse und Labels
+        x.axisLabels = nil      // Labels ausblenden
+        x.majorTickLineStyle = nil  // Major Tick-Linien ausblenden
+        x.minorTickLineStyle = nil  // Minor Tick-Linien ausblenden
+
         x.labelingPolicy = .none
         x.labelRotation = CGFloat(Double.pi / 4) // Drehen Sie die Labels für bessere Sichtbarkeit
-
-        // Setzen Sie die Labels manuell
-        var customLabels: [CPTAxisLabel] = []
-        for (index, data) in plotData.enumerated() {
-            if index % 5 == 0 { // Zum Beispiel alle 5 Punkte, Sie können dies nach Bedarf anpassen
-                let labelText = data.date
-                let labelValue = NSNumber(value: index)
-                let newLabel = CPTAxisLabel(text: labelText, textStyle: x.labelTextStyle)
-                newLabel.tickLocation = labelValue
-                newLabel.offset = x.labelOffset + x.majorTickLength
-                newLabel.rotation = CGFloat(Double.pi / 4)
-                customLabels.append(newLabel)
-            }
-        }
-
-        x.axisLabels = Set(customLabels)
     }
+
+
 
     if let y = axisSet.yAxis {
         y.majorIntervalLength = NSNumber(value: majorInterval) // Setzen Sie den berechneten Wert hier
